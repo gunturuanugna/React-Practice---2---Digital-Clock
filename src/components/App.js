@@ -2,33 +2,30 @@ import React, {Component, useState} from "react";
 import '../styles/App.css';
 
 class App extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            time: getCurrentTime(),
-        };
+    constructor(){
+        super();
+        this.state={time:new Date()};
     }
-
+    newTime(){
+    this.setState({time:new Date()});
+    }
     componentDidMount(){
-        this.intervalId = setInterval( ()=>{
-            this.setState({time:getCurrentTime() })
-        }, 1000)
+        this.interval=setInterval(()=>this.newTime(),1000);
     }
-
     componentWillUnmount(){
-        clearInterval(this.intervalId)
+        clearInterval(this.interval);
     }
-    
     render() {
 
         return(
-            <div className="Clock">
-                <h3 id="time">{this.state.time}</h3>
-            </div>
+            <>
+              <div className="Clock">
+                  <h3 id="time">{this.state.time.toLocaleTimeString()}</h3>
+                  </div> 
+            </>
         )
     }
 }
-
 
 
 export default App;
